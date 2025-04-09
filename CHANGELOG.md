@@ -12,3 +12,7 @@ All notable changes to this project will be documented in this file.
 - `[ApplicationRepository]` Added repository connector for application
 - `[ApplicationService]` Added service for application repository
 - `[TyraelApplication]` Added Tyrael main application starter
+
+## 1.0.0 Fixes
+
+- `[ApplicationController]` Enabled cross origin for `/applications` restful api
