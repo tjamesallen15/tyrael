@@ -21,6 +21,7 @@ public class Application {
   private String description;
   private String category;
   private String tech;
+  private String link;
 
   public Long getId() {
     return id;
@@ -60,6 +61,14 @@ public class Application {
 
   public void setTech(String tech) {
     this.tech = tech;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
   }
 
 }
