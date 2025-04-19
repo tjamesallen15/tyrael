@@ -29,7 +29,10 @@ public class Application {
   private String tech;
 
   @Column(columnDefinition = "TEXT")
-  private String link;
+  private String repository;
+
+  @Column(columnDefinition = "TEXT")
+  private String site;
 
   public Long getId() {
     return id;
@@ -71,12 +74,20 @@ public class Application {
     this.tech = tech;
   }
 
-  public String getLink() {
-    return link;
+  public String getRepository() {
+    return repository;
   }
 
-  public void setLink(String link) {
-    this.link = link;
+  public void setRepository(String repository) {
+    this.repository = repository;
+  }
+
+  public String getSite() {
+    return site;
+  }
+
+  public void setSite(String site) {
+    this.site = site;
   }
 
 }

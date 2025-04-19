@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - `[Entity]` Code cleanup for all entities.
 - `[Service]` Code cleanup for all services.
 - `[Repository]` Code cleanup for all repositories.
+- `[Application]` Added site property and updated link to repository property.
 
 # 1.1.0
 

@@ -17,7 +17,7 @@ public class ApplicationController {
   @GetMapping("/applications")
   public List<Application> getAllApplications() {
     return applicationService.getAllApplications().stream()
-      .filter(obj -> obj.getLink() != null)
+      .filter(obj -> obj.getRepository() != null)
       .toList();
   }
 
@@ -25,7 +25,7 @@ public class ApplicationController {
   public List<Application> getAllPages() {
     return applicationService.getAllApplications().stream()
       .filter(obj -> obj.getCategory().contains("Page"))
-      .filter(obj -> obj.getLink() != null)
+      .filter(obj -> obj.getRepository() != null)
       .toList();
   }
 
