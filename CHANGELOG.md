@@ -10,19 +10,23 @@ All notable changes to this project will be documented in this file.
 - `[ExperienceController]` Added controller for Experience entity.
 - `[InformationController]` Added controller for Information entity.
 - `[SkillsController]` Added controller for Skills entity.
+- `[WorkController]` Added controller for Work entity.
 - `[About]` Added About entity.
 - `[Experience]` Added Experiences entity.
 - `[Information]` Added Information entity.
 - `[Skills]` Added Skills entity.
+- `[Work]` Added Work entity.
 - `[ExperienceMapper]` Added experience mapper for mapping purposes.
 - `[AboutRepository]` Added repository for About entity.
 - `[ExperienceRepository]` Added repository for Experience entity.
 - `[InformationRepository]` Added repository for Information entity.
 - `[SkillsRepository]` Added repository for Skills entity.
+- `[WorkRepository]` Added repository for Work entity.
 - `[AboutService]` Added service for About entity.
 - `[ExperienceService]` Added controller for Experience entity.
 - `[InformationService]` Added service for Information entity.
 - `[SkillsService]` Added service for Skills entity.
+- `[WorkService]` Added service for Work entity.
 
 ## 1.2.0 Fixes
 
