@@ -8,11 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jallen.tyrael.entity.Application;
-import org.jallen.tyrael.interfaces.Panda;
+import org.jallen.tyrael.entity.Base;
 import org.jallen.tyrael.services.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ReviewerController {
@@ -20,7 +19,6 @@ public class ReviewerController {
   @Autowired
   private ApplicationService applicationService;
 
-  @GetMapping("applicationsMap")
   public Map<Long, Application> getAllApplicationsByMap() {
     List<Application> applications = applicationService.getAllApplications();
     Map<Long, Application> applicationMap = applications.stream()
@@ -39,8 +37,8 @@ public class ReviewerController {
     String optionalParameter = testString.isPresent() ? testString.get() : "no hotdog";
     System.out.println(optionalParameter);
 
-    Panda panda = (val) -> val + "hotdog";
-    System.out.println(panda.doSomething("tenderjuicy"));
+    Base base = (val) -> val + "Test";
+    System.out.println(base.showMessage("Print"));
 
     Map<String, Application> map = applications.stream()
       .filter(obj -> obj.getCategory().equals("Page"))
@@ -51,7 +49,6 @@ public class ReviewerController {
     return applicationMap;
   }
 
-  @GetMapping("getTitlePages")
   public Map<String, Application> getTitlePages() {
     List<Application> applications = applicationService.getAllApplications();
     Map<String, Application> map = applications.stream()
@@ -63,7 +60,6 @@ public class ReviewerController {
     return map;
   }
 
-  @GetMapping("getPageList")
   public List<String> getPageList() {
     List<Application> applications = applicationService.getAllApplications();
 
@@ -74,7 +70,6 @@ public class ReviewerController {
     return pageList;
   }
 
-  @GetMapping("getPageListFromMap")
   public List<String> getPageListFromMap() {
     List<Application> applications = applicationService.getAllApplications();
     Map<String, Application> map = applications.stream()

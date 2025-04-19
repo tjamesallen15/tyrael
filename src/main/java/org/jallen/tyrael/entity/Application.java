@@ -14,13 +14,21 @@ public class Application {
   @Id
   @Column(name = "id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "application_seq")
   private Long id;
 
+  @Column(columnDefinition = "TEXT")
   private String title;
+
+  @Column(columnDefinition = "TEXT")
   private String description;
+
+  @Column(columnDefinition = "TEXT")
   private String category;
+
+  @Column(columnDefinition = "TEXT")
   private String tech;
+
+  @Column(columnDefinition = "TEXT")
   private String link;
 
   public Long getId() {
