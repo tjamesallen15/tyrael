@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 # 1.2.0
 
-# 1.2.0 Features
+## 1.2.0 Features
 
 - `[AboutController]` Added controller for About entity.
 - `[ExperienceController]` Added controller for Experience entity.
@@ -24,7 +24,7 @@ All notable changes to this project will be documented in this file.
 - `[InformationService]` Added service for Information entity.
 - `[SkillsService]` Added service for Skills entity.
 
-# 1.2.0 Fixes
+## 1.2.0 Fixes
 
 - `[Controller]` Code cleanup for all controllers.
 - `[Entity]` Code cleanup for all entities.
