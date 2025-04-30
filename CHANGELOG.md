@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# 1.3.0
+
+# 1.3.0 Fixes
+
+- `[Application]` Added priority column for sorting.
+
 # 1.2.0
 
 ## 1.2.0 Features

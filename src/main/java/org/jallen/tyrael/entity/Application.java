@@ -34,6 +34,9 @@ public class Application {
   @Column(columnDefinition = "TEXT")
   private String site;
 
+  @Column(name = "priority")
+  private Long priority;
+
   public Long getId() {
     return id;
   }
@@ -88,6 +91,14 @@ public class Application {
 
   public void setSite(String site) {
     this.site = site;
+  }
+
+  public Long getPriority() {
+    return priority;
+  }
+
+  public void setPriority(Long priority) {
+    this.priority = priority;
   }
 
 }

@@ -15,6 +15,6 @@ public class ApplicationService {
   private ApplicationRepository applicationRepository;
 
   public List<Application> getAllApplications() {
-    return applicationRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    return applicationRepository.findAll(Sort.by(Sort.Direction.ASC, "priority"));
   }
 }
