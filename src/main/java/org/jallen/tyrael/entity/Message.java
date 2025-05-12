@@ -1,6 +1,6 @@
 package org.jallen.tyrael.entity;
 
 @FunctionalInterface
-public interface Base {
+public interface Message {
   public String showMessage(String s); 
 }

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 # 1.3.0
 
+# 1.3.0 Features
+
+- `[ApplicationController]` Added interface BaseController to streamline main endpoints.
+- `[ApplicationService]` Added interface BaseService to streamline main services.
+- `[TyraelController]` Added temporary login endpoint.
+- `[WorkController]` Added interface BaseController to streamline main endpoints.
+- `[WorkService]` Added interface BaseService to streamline main services.
+
 # 1.3.0 Fixes
 
 - `[Application]` Added priority column for sorting.
@@ -64,4 +72,3 @@ All notable changes to this project will be documented in this file.
 ## 1.0.0 Fixes
 
 - `[TyraelApplication]` Enabled cross origin for all endpoints.
-

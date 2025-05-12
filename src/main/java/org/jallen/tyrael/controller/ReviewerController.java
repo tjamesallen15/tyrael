@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jallen.tyrael.entity.Application;
-import org.jallen.tyrael.entity.Base;
+import org.jallen.tyrael.entity.Message;
 import org.jallen.tyrael.services.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class ReviewerController {
   private ApplicationService applicationService;
 
   public Map<Long, Application> getAllApplicationsByMap() {
-    List<Application> applications = applicationService.getAllApplications();
+    List<Application> applications = applicationService.findAll();
     Map<Long, Application> applicationMap = applications.stream()
       .collect(Collectors.toMap(
         Application::getId, 
@@ -37,7 +37,7 @@ public class ReviewerController {
     String optionalParameter = testString.isPresent() ? testString.get() : "no hotdog";
     System.out.println(optionalParameter);
 
-    Base base = (val) -> val + "Test";
+    Message base = (val) -> val + "Test";
     System.out.println(base.showMessage("Print"));
 
     Map<String, Application> map = applications.stream()
@@ -50,7 +50,7 @@ public class ReviewerController {
   }
 
   public Map<String, Application> getTitlePages() {
-    List<Application> applications = applicationService.getAllApplications();
+    List<Application> applications = applicationService.findAll();
     Map<String, Application> map = applications.stream()
     .filter(obj -> obj.getCategory().equals("Page"))
     .collect(Collectors.toMap(
@@ -61,7 +61,7 @@ public class ReviewerController {
   }
 
   public List<String> getPageList() {
-    List<Application> applications = applicationService.getAllApplications();
+    List<Application> applications = applicationService.findAll();
 
     List<String> pageList = applications.stream()
       .flatMap(obj -> Stream.of(new StringBuilder(obj.getTitle()).append(":").append(obj.getCategory()).toString()))
@@ -71,7 +71,7 @@ public class ReviewerController {
   }
 
   public List<String> getPageListFromMap() {
-    List<Application> applications = applicationService.getAllApplications();
+    List<Application> applications = applicationService.findAll();
     Map<String, Application> map = applications.stream()
     .filter(obj -> obj.getCategory().equals("Page"))
     .collect(Collectors.toMap(

@@ -9,12 +9,39 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ApplicationService {
+public class ApplicationService implements BaseService<Application> {
 
   @Autowired
   private ApplicationRepository applicationRepository;
 
-  public List<Application> getAllApplications() {
+  @Override
+  public List<Application> findAll() {
     return applicationRepository.findAll(Sort.by(Sort.Direction.ASC, "priority"));
+  }
+
+  @Override
+  public Application findById(Long id) {
+    return applicationRepository.findById(id).orElse(null);
+  }
+
+  @Override
+  public Application create(Application obj) {
+    return applicationRepository.save(obj);
+  }
+
+  @Override
+  public Application update(Long id, Application obj) {
+    Application app = applicationRepository.findById(id).orElse(null);
+    if (app != null) {
+      app.setTitle(obj.getTitle());
+      app.setDescription(obj.getDescription());
+      app.setCategory(obj.getCategory());
+      app.setTech(obj.getTech());
+      app.setRepository(obj.getRepository());
+      app.setSite(obj.getSite());
+      app.setPriority(obj.getPriority());
+      return applicationRepository.save(app);
+    }
+    return app;
   }
 }
