@@ -30,6 +30,13 @@ public class ApplicationService implements BaseService<Application> {
   }
 
   @Override
+  public void delete(Long id) {
+    if (applicationRepository.existsById(id)) {
+      applicationRepository.deleteById(id);
+    }
+  }
+
+  @Override
   public Application update(Long id, Application obj) {
     Application app = applicationRepository.findById(id).orElse(null);
     if (app != null) {

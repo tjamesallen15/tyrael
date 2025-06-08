@@ -7,4 +7,5 @@ public interface BaseService<T> {
   public T findById(Long id);
   public T create(T obj);
   public T update(Long id, T obj);
+  public void delete(Long id);
 }

@@ -30,6 +30,13 @@ public class WorkService implements BaseService<Work>{
   }
 
   @Override
+  public void delete(Long id) {
+    if (workRepository.existsById(id)) {
+      workRepository.deleteById(id);
+    }
+  }
+
+  @Override
   public Work update(Long id, Work obj) {
     Work work = workRepository.findById(id).orElse(null);
     if (work != null) {
