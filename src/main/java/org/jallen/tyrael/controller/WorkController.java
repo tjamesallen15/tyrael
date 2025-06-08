@@ -43,7 +43,7 @@ public class WorkController implements BaseController<Work> {
 
   @PostMapping("/works/")
   @Override
-  public Work create(Work obj) {
+  public Work create(@RequestBody Work obj) {
     return workService.create(obj);
   }
 
