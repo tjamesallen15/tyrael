@@ -215,7 +215,7 @@ available at [http://contributor-covenant.org/version/1/4][version]
 
 # License
 
-Copyright (c) 2020-present TeamAei
+Copyright (c) 2020-present James Allen
 
 This software are licensed as follows:
 
