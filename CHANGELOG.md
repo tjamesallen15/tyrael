@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 # 1.4.0
 
-# 1.4.0 Features
+## 1.4.0 Features
 
 - `[BaseMapper]` Added interface BaseMapper to streamline mapping operations.
 - `[AboutMapper]` Added mapper implementing BaseMapper for About entity.
@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 - `[Message]` Added Message functional interface for message handling.
 - `[TyraelSecurity]` Added security configuration with Spring Security.
 
-# 1.4.0 Fixes
+## 1.4.0 Fixes
 
 - `[Security]` Configured CSRF protection and HTTP authorization.
 - `[Mapper]` Standardized mapping operations across all entities.
