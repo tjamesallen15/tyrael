@@ -5,8 +5,9 @@ import java.util.Optional;
 
 import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Skill;
+import org.jallen.tyrael.exception.EntityNotFoundException;
 import org.jallen.tyrael.mapper.SkillMapper;
-import org.jallen.tyrael.services.SkillServices;
+import org.jallen.tyrael.services.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SkillController implements BaseController<Skill> {
   
   @Autowired
-  private SkillServices skillService;
+  private SkillService skillService;
 
   @Autowired
   private SkillMapper skillMapper;
@@ -34,9 +35,9 @@ public class SkillController implements BaseController<Skill> {
   @GetMapping("/skill/{id}")
   @Override
   public ResponseEntity<Skill> findById(Long id) {
-    Optional<Skill> skills = skillService.findById(id);
-    return skills.map(o -> ResponseEntity.ok(o))
-      .orElse(ResponseEntity.notFound().build());
+    Skill skill = skillService.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Skill not found with id: " + id));
+    return ResponseEntity.ok(skill);
   }
 
   @PostMapping("/skill")
@@ -53,9 +54,12 @@ public class SkillController implements BaseController<Skill> {
     return ResponseEntity.ok(skills);
   }
 
-  @DeleteMapping("skill/{id}")
+  @DeleteMapping("/skill/{id}")
   @Override
   public ResponseEntity<?> delete(Long id) {
+    if (skillService.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("Skill not found with id: " + id);
+    }
     skillService.delete(id);
     return ResponseEntity.noContent().build();
   }

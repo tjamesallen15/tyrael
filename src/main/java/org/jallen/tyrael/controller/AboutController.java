@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.About;
+import org.jallen.tyrael.exception.EntityNotFoundException;
 import org.jallen.tyrael.mapper.AboutMapper;
 import org.jallen.tyrael.services.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ public class AboutController implements BaseController<About> {
   @GetMapping("/about/{id}")
   @Override
   public ResponseEntity<About> findById(Long id) {
-    Optional<About> about = aboutService.findById(id);
-    return about.map(o -> ResponseEntity.ok(o))
-      .orElse(ResponseEntity.notFound().build());
+    About about = aboutService.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("About not found with id: " + id));
+    return ResponseEntity.ok(about);
   }
 
   @PostMapping("/about")
@@ -54,6 +55,9 @@ public class AboutController implements BaseController<About> {
 
   @Override
   public ResponseEntity<?> delete(Long id) {
+    if (aboutService.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("About not found with id: " + id);
+    }
     aboutService.delete(id);
     return ResponseEntity.noContent().build();
   }

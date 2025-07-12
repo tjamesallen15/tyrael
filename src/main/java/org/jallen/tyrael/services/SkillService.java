@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SkillServices implements BaseService<Skill> {
+public class SkillService implements BaseService<Skill> {
   
   @Autowired
   private SkillRepository skillRepository;
