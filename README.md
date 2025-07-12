@@ -219,7 +219,7 @@ Copyright (c) 2020-present James Allen
 
 This software are licensed as follows:
 
-- It is for exclusive use only for TeamAei.
+- It is for exclusive use only for James Allen.
 - All of the files inside are confidential.
 - It is not intended for distribution and should not be sold.
 
