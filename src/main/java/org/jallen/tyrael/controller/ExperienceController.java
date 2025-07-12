@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Experience;
+import org.jallen.tyrael.exception.EntityNotFoundException;
 import org.jallen.tyrael.mapper.ExperienceMapper;
 import org.jallen.tyrael.services.ExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ public class ExperienceController implements BaseController<Experience> {
   @GetMapping("/experience/{id}")
   @Override
   public ResponseEntity<Experience> findById(Long id) {
-    Optional<Experience> experience = experienceService.findById(id);
-    return experience.map(o -> ResponseEntity.ok(o))
-      .orElse(ResponseEntity.notFound().build());
+    Experience experience = experienceService.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Experience not found with id: " + id));
+    return ResponseEntity.ok(experience);
   }
 
   @PostMapping("/experience")
@@ -53,6 +54,9 @@ public class ExperienceController implements BaseController<Experience> {
 
   @Override
   public ResponseEntity<?> delete(Long id) {
+    if (experienceService.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("Experience not found with id: " + id);
+    }
     experienceService.delete(id);
     return ResponseEntity.noContent().build();
   }

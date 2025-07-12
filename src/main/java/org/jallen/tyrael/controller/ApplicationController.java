@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Application;
+import org.jallen.tyrael.exception.EntityNotFoundException;
 import org.jallen.tyrael.mapper.ApplicationMapper;
 import org.jallen.tyrael.services.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class ApplicationController implements BaseController<Application> {
   @GetMapping("/application/{id}")
   @Override
   public ResponseEntity<Application> findById(@PathVariable("id") Long id) {
-    Optional<Application> application = applicationService.findById(id);
-    return application.map(o -> ResponseEntity.ok(o))
-      .orElse(ResponseEntity.notFound().build());
+    Application application = applicationService.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Application not found with id: " + id));
+    return ResponseEntity.ok(application);
   }
 
   @PostMapping("/application")
@@ -57,6 +58,9 @@ public class ApplicationController implements BaseController<Application> {
 
   @DeleteMapping("/application/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+    if (applicationService.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("Application not found with id: " + id);
+    }
     applicationService.delete(id);
     return ResponseEntity.noContent().build();
   }

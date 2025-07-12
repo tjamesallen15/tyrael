@@ -100,6 +100,37 @@ Steps:
 - Write meaningful commit messages
 - Include unit tests for new features
 
+## Testing
+
+The project includes comprehensive unit tests for controllers and services.
+
+### Running Tests
+
+```bash
+# Run all tests
+./mvnw test
+
+# Run specific test classes
+./mvnw test -Dtest=ApplicationControllerTest,ApplicationServiceTest
+
+# Run tests by package
+./mvnw test -Dtest=org.jallen.tyrael.controller.*
+./mvnw test -Dtest=org.jallen.tyrael.services.*
+```
+
+### Test Coverage
+
+- **Controller Tests**: Web layer testing with MockMvc
+- **Service Tests**: Business logic testing with Mockito
+- **Repository Tests**: Data layer testing with @DataJpaTest
+- **Integration Tests**: Full application context testing
+
+### Test Configuration
+
+- Uses H2 in-memory database for tests
+- Security disabled for controller tests
+- Mocked dependencies for unit tests
+
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,

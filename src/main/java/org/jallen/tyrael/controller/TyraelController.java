@@ -1,20 +1,38 @@
 package org.jallen.tyrael.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.jallen.tyrael.services.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 public class TyraelController {
 
-  @GetMapping("/login")
-  public String validateLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
-    boolean validate = false;
-    if (username == null || password == null)
-      validate = false;
+  @Autowired
+  private JwtService jwtService;
 
-    validate = username.equals("jallen") &&
-        password.equals("adminroot");
-    return Boolean.toString(validate);
+  @Value("${app.admin.username}")
+  private String adminUsername;
+
+  @Value("${app.admin.password}")
+  private String adminPassword;
+
+  @PostMapping("/login")
+  public ResponseEntity<?> login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    if (username == null || password == null) {
+      return ResponseEntity.badRequest().body(Map.of("error", "Username and password required"));
+    }
+
+    if (username.equals(adminUsername) && password.equals(adminPassword)) {
+      String token = jwtService.generateToken(username);
+      return ResponseEntity.ok(Map.of("token", token));
+    }
+
+    return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
   }
 }

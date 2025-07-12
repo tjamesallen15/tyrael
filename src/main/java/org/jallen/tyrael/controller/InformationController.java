@@ -2,6 +2,7 @@ package org.jallen.tyrael.controller;
 
 import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Information;
+import org.jallen.tyrael.exception.EntityNotFoundException;
 import org.jallen.tyrael.mapper.InformationMapper;
 import org.jallen.tyrael.services.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,12 @@ public class InformationController implements BaseController<Information> {
     return ResponseEntity.ok(informations);
   }
 
-  @GetMapping("information/{id}")
+  @GetMapping("/information/{id}")
   @Override
   public ResponseEntity<Information> findById(Long id) {
-    Optional<Information> information = informationService.findById(id);
-    return information.map(o -> ResponseEntity.ok(o))
-      .orElse(ResponseEntity.notFound().build());
+    Information information = informationService.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Information not found with id: " + id));
+    return ResponseEntity.ok(information);
   }
 
   @Override
@@ -49,6 +50,9 @@ public class InformationController implements BaseController<Information> {
 
   @Override
   public ResponseEntity<?> delete(Long id) {
+    if (informationService.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("Information not found with id: " + id);
+    }
     informationService.delete(id);
     return ResponseEntity.noContent().build();
   }

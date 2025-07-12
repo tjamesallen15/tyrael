@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Work;
+import org.jallen.tyrael.exception.EntityNotFoundException;
 import org.jallen.tyrael.mapper.WorkMapper;
 import org.jallen.tyrael.services.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class WorkController implements BaseController<Work> {
   @GetMapping("/work/{id}")
   @Override
   public ResponseEntity<Work> findById(@PathVariable("id") Long id) {
-    Optional<Work> work = workService.findById(id);
-    return work.map(w -> ResponseEntity.ok(w))
-      .orElse(ResponseEntity.notFound().build());
+    Work work = workService.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Work not found with id: " + id));
+    return ResponseEntity.ok(work);
   }
 
   @PostMapping("/work")
@@ -57,6 +58,9 @@ public class WorkController implements BaseController<Work> {
 
   @DeleteMapping("/work/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+    if (workService.findById(id).isEmpty()) {
+      throw new EntityNotFoundException("Work not found with id: " + id);
+    }
     workService.delete(id);
     return ResponseEntity.noContent().build();
   }
