@@ -1,13 +1,54 @@
 # Tyrael
 
-The Official Server of Jallen
+Modern REST API server built with Java 17 and Spring Boot 3.4, featuring PostgreSQL database integration and comprehensive security.
+
+## Tech Stack
+
+- **Java 17** - Latest LTS version
+- **Spring Boot 3.4** - Modern framework with native compilation support
+- **PostgreSQL** - Production-ready relational database
+- **Spring Security 6** - Enterprise-grade authentication and authorization
+- **Spring Data JPA** - Simplified data access layer
+- **Lombok** - Reduced boilerplate code
+- **Maven** - Dependency management and build automation
+
+## Features
+
+- RESTful API endpoints
+- Database persistence with JPA/Hibernate
+- Security with JWT authentication
+- Actuator endpoints for monitoring
+- Development tools integration
+- Production-ready configuration
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd tyrael
+
+# Run with Maven
+./mvnw spring-boot:run
+
+# Or build and run JAR
+./mvnw clean package
+java -jar target/tyrael-1.4.0-SNAPSHOT.jar
+```
+
+## API Documentation
+
+Once running, access:
+
+- Application: `http://localhost:8080`
+- Health Check: `http://localhost:8080/actuator/health`
 
 ## Members
 
 Listed below are the contributors for this project.
 
-* James Allen Tadique
-* Genessa Nepomuceno-Tadique
+- James Allen Tadique
+- Genessa Nepomuceno-Tadique
 
 # Project Rules
 
@@ -19,39 +60,50 @@ The branch names is essential and important in project development. Branch name 
 
 ### Branch Development
 
-Branch naming for development is labeled by **lastname-dev**. This will represent who is the contributor for the development. **(Ex. tadique-dev)**
+Branch naming for development is labeled by **lastname-dev**. This will represent who is the contributor for the development. **(Ex. doe-dev)**
 
 ### Branch Issue
 
-Branch naming for issues are labeled by **issue_id** This will represent the fixed or patch for the issue to be resolved. **(Ex. TTA1)**
+Branch naming for issues are labeled by **issue_id** This will represent the fixed or patch for the issue to be resolved. **(Ex. 1 - Blocker on Dashboard)**
 
 ### Issues
 
 Issues are either bugs, enhancements or development for the project. Always make an appropriate title that best describes the issue.
 
 Steps:
-* Create a new issue.
-* Make a approriate title for the issue
-* Assign it to the developer.
-* Assign appropriate milestone and label for the merge request.
-* Submit the issue.
 
-### Merge Request
+- Create a new issue.
+- Make a approriate title for the issue
+- Assign it to the developer.
+- Assign appropriate milestone and label for the merge request.
+- Submit the issue.
 
-Merge request is the act of merging branches for deployment.
+## Development
 
-Steps:
-* Create a merge request.
-* Make a approriate title for the merge request. Make sure to put **WIP:** before the title to let us know that it is still in progress.
-* Assign it to the code reviewers.
-* Assign appropriate milestone and label for the merge request. It should be the same milestone and label for the issue.
-* Untick **Delete source branch when merge request is accepted.** in the Merge Options.
-* Submit the merge request.
+### Prerequisites
+
+- Java 17 or higher
+- Maven 3.6+
+- PostgreSQL 12+
+
+### Environment Setup
+
+1. Configure database connection in `application.properties`
+2. Install dependencies: `./mvnw clean install`
+3. Run tests: `./mvnw test`
+4. Start development server: `./mvnw spring-boot:run`
+
+### Code Style
+
+- Follow Java naming conventions
+- Use Lombok annotations to reduce boilerplate
+- Write meaningful commit messages
+- Include unit tests for new features
 
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+email, or any other method with the owners of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
@@ -71,21 +123,21 @@ orientation.
 Examples of behavior that contributes to creating a positive environment
 include:
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
+- Using welcoming and inclusive language
+- Being respectful of differing viewpoints and experiences
+- Gracefully accepting constructive criticism
+- Focusing on what is best for the community
+- Showing empathy towards other community members
 
 Examples of unacceptable behavior by participants include:
 
-* The use of sexualized language or imagery and unwelcome sexual attention or
-advances
-* Trolling, insulting/derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or electronic
+- The use of sexualized language or imagery and unwelcome sexual attention or
+  advances
+- Trolling, insulting/derogatory comments, and personal or political attacks
+- Public or private harassment
+- Publishing others' private information, such as a physical or electronic
   address, without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a
+- Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
 ### Our Responsibilities
@@ -136,9 +188,9 @@ Copyright (c) 2020-present TeamAei
 
 This software are licensed as follows:
 
-* It is for exclusive use only for TeamAei. 
-* All of the files inside are confidential.
-* It is not intended for distribution and should not be sold.
+- It is for exclusive use only for TeamAei.
+- All of the files inside are confidential.
+- It is not intended for distribution and should not be sold.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
