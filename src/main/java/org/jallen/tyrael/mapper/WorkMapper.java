@@ -13,7 +13,7 @@ public class WorkMapper implements BaseMapper<Work> {
   public List<Work> getMapping(List<Work> obj) {
     return obj.stream().map(o -> {
       Work work = new Work();
-      work.setId(work.getId());
+      work.setId(o.getId());
       work = getMapping(work, o);
       return work;
     }).toList();
