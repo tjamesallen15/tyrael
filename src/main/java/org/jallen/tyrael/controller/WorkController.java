@@ -1,11 +1,13 @@
 package org.jallen.tyrael.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Work;
+import org.jallen.tyrael.mapper.WorkMapper;
 import org.jallen.tyrael.services.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,45 +23,42 @@ public class WorkController implements BaseController<Work> {
   @Autowired
   private WorkService workService;
 
-  @GetMapping("/works")
+  @Autowired
+  private WorkMapper workMapper;
+
+  @GetMapping("/work")
   @Override
-  public List<Work> findAll() {
-    return workService.findAll();
+  public ResponseEntity<List<Work>> findAll() {
+    List<Work> works = workMapper.getMapping(workService.findAll());
+    return ResponseEntity.ok(works);
   }
 
-  @GetMapping("/works/")
-  public List<Work> findAllIndex() {
-    return workService.findAll().stream()
-        .map(obj -> {
-          Work work = new Work();
-          work.setId(obj.getId());
-          work.setName(obj.getName());
-          return work;
-        }).toList();
-  }
-
-  @GetMapping("/works/{id}")
+  @GetMapping("/work/{id}")
   @Override
-  public Work findById(@PathVariable("id") Long id) {
-    return workService.findById(id);
+  public ResponseEntity<Work> findById(@PathVariable("id") Long id) {
+    Optional<Work> work = workService.findById(id);
+    return work.map(w -> ResponseEntity.ok(w))
+      .orElse(ResponseEntity.notFound().build());
   }
 
-  @PostMapping("/works/")
+  @PostMapping("/work")
   @Override
-  public Work create(@RequestBody Work obj) {
-    return workService.create(obj);
+  public ResponseEntity<Work> create(@RequestBody Work obj) {
+    Work work = workService.create(obj);
+    return ResponseEntity.status(201).body(work);
   }
 
-  @PutMapping("/works/{id}")
+  @PutMapping("/work/{id}")
   @Override
-  public Work update(@PathVariable("id") Long id, @RequestBody Work obj) {
-    return workService.update(id, obj);
+  public ResponseEntity<Work> update(@PathVariable("id") Long id, @RequestBody Work obj) {
+    Work work = workService.update(id, obj);
+    return ResponseEntity.ok(work);
   }
 
-  @DeleteMapping("/works/{id}")
+  @DeleteMapping("/work/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Long id) {
     workService.delete(id);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return ResponseEntity.noContent().build();
   }
 
 }

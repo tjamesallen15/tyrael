@@ -1,8 +1,11 @@
 package org.jallen.tyrael.services;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.jallen.tyrael.base.BaseService;
 import org.jallen.tyrael.entity.Work;
+import org.jallen.tyrael.mapper.WorkMapper;
 import org.jallen.tyrael.repositories.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,14 +17,17 @@ public class WorkService implements BaseService<Work>{
   @Autowired
   private WorkRepository workRepository;
 
+  @Autowired
+  private WorkMapper workMapper;
+
   @Override
   public List<Work> findAll() {
     return workRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
   }
 
   @Override
-  public Work findById(Long id) {
-    return workRepository.findById(id).orElse(null);
+  public Optional<Work> findById(Long id) {
+    return workRepository.findById(id);
   }
 
   @Override
@@ -38,15 +44,9 @@ public class WorkService implements BaseService<Work>{
 
   @Override
   public Work update(Long id, Work obj) {
-    Work work = workRepository.findById(id).orElse(null);
-    if (work != null) {
-      work.setName(obj.getName());
-      work.setSub(obj.getSub());
-      work.setTechnology(obj.getTechnology());
-      work.setCompany(obj.getCompany());
-      work.setDescription(obj.getDescription());
-      return workRepository.save(work);
-    }
-    return work;
+    Work work = workRepository.findById(id)
+      .orElseThrow(() -> new RuntimeException("Work not found with id: " + id));
+    work = workMapper.getMapping(work, obj);
+    return workRepository.save(work);
   }
 }

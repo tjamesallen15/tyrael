@@ -1,7 +1,38 @@
 package org.jallen.tyrael.mapper;
 
-public class ExperienceMapper {
-  
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.jallen.tyrael.base.BaseMapper;
+import org.jallen.tyrael.entity.Experience;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ExperienceMapper implements BaseMapper<Experience> {
+
+  @Override
+  public List<Experience> getMapping(List<Experience> obj) {
+    return obj.stream()
+      .peek(exp -> 
+        exp.setTotal(this.transformTotal(exp.getDuration(), exp.getTotal()))
+      )
+      .collect(Collectors.toList());
+  }
+
+  @Override
+  public Experience getMapping(Experience origin, Experience obj) {
+    if (obj == null) return origin;
+
+    origin.setCompany(obj.getCompany());
+    origin.setDescription(obj.getDescription());
+    origin.setDuration(obj.getDuration());
+    origin.setLocation(obj.getLocation());
+    origin.setPosition(obj.getPosition());
+    origin.setTotal(obj.getTotal());
+
+    return origin;
+  }
+
   public String transformTotal(String duration, String total) {
     String[] totalParts = total.split("\\.");
     StringBuilder totalBuilder = new StringBuilder();

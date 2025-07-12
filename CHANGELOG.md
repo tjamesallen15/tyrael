@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+# 1.4.0
+
+# 1.4.0 Features
+
+- `[BaseMapper]` Added interface BaseMapper to streamline mapping operations.
+- `[AboutMapper]` Added mapper implementing BaseMapper for About entity.
+- `[InformationMapper]` Added mapper implementing BaseMapper for Information entity.
+- `[SkillMapper]` Added mapper implementing BaseMapper for Skill entity.
+- `[WorkMapper]` Added mapper implementing BaseMapper for Work entity.
+- `[Login]` Added Login entity for authentication purposes.
+- `[Message]` Added Message functional interface for message handling.
+- `[TyraelSecurity]` Added security configuration with Spring Security.
+
+# 1.4.0 Fixes
+
+- `[Security]` Configured CSRF protection and HTTP authorization.
+- `[Mapper]` Standardized mapping operations across all entities.
+
 # 1.3.0
 
 # 1.3.0 Features

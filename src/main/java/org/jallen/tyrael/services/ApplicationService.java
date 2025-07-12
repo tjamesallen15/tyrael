@@ -1,8 +1,11 @@
 package org.jallen.tyrael.services;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.jallen.tyrael.base.BaseService;
 import org.jallen.tyrael.entity.Application;
+import org.jallen.tyrael.mapper.ApplicationMapper;
 import org.jallen.tyrael.repositories.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -14,14 +17,17 @@ public class ApplicationService implements BaseService<Application> {
   @Autowired
   private ApplicationRepository applicationRepository;
 
+  @Autowired
+  private ApplicationMapper applicationMapper;
+
   @Override
   public List<Application> findAll() {
     return applicationRepository.findAll(Sort.by(Sort.Direction.ASC, "priority"));
   }
 
   @Override
-  public Application findById(Long id) {
-    return applicationRepository.findById(id).orElse(null);
+  public Optional<Application> findById(Long id) {
+    return applicationRepository.findById(id);
   }
 
   @Override
@@ -30,25 +36,17 @@ public class ApplicationService implements BaseService<Application> {
   }
 
   @Override
+  public Application update(Long id, Application obj) {
+    Application app = applicationRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Application not found with id: " + id));
+    app = applicationMapper.getMapping(app, obj);
+    return applicationRepository.save(app);
+  }
+
+  @Override
   public void delete(Long id) {
     if (applicationRepository.existsById(id)) {
       applicationRepository.deleteById(id);
     }
-  }
-
-  @Override
-  public Application update(Long id, Application obj) {
-    Application app = applicationRepository.findById(id).orElse(null);
-    if (app != null) {
-      app.setTitle(obj.getTitle());
-      app.setDescription(obj.getDescription());
-      app.setCategory(obj.getCategory());
-      app.setTech(obj.getTech());
-      app.setRepository(obj.getRepository());
-      app.setSite(obj.getSite());
-      app.setPriority(obj.getPriority());
-      return applicationRepository.save(app);
-    }
-    return app;
   }
 }

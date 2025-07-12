@@ -1,13 +1,13 @@
 package org.jallen.tyrael.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
+import org.jallen.tyrael.base.BaseController;
 import org.jallen.tyrael.entity.Application;
+import org.jallen.tyrael.mapper.ApplicationMapper;
 import org.jallen.tyrael.services.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,57 +23,41 @@ public class ApplicationController implements BaseController<Application> {
   @Autowired
   private ApplicationService applicationService;
 
-  @GetMapping("/applications")
+  @Autowired
+  private ApplicationMapper applicationMapper;
+
+  @GetMapping("/application")
   @Override
-  public List<Application> findAll() {
-    return applicationService.findAll().stream()
-        .filter(obj -> obj.getRepository() != null)
-        .toList();
+  public ResponseEntity<List<Application>> findAll() {
+    List<Application> applications = applicationMapper.getMapping(applicationService.findAll());
+    return ResponseEntity.ok(applications);
   }
 
-  @GetMapping("/applications/")
-  public List<Application> findAllIndex() {
-    return applicationService.findAll().stream()
-        .filter(obj -> obj.getRepository() != null)
-        .map(obj -> {
-          Application application = new Application();
-          application.setId(obj.getId());
-          application.setTitle(obj.getTitle());
-          return application;
-        })
-        .toList();
-  }
-
-  @GetMapping("/applications/{id}")
+  @GetMapping("/application/{id}")
   @Override
-  public Application findById(@PathVariable("id") Long id) {
-    return applicationService.findById(id);
+  public ResponseEntity<Application> findById(@PathVariable("id") Long id) {
+    Optional<Application> application = applicationService.findById(id);
+    return application.map(o -> ResponseEntity.ok(o))
+      .orElse(ResponseEntity.notFound().build());
   }
 
-  @PostMapping("/applications/")
+  @PostMapping("/application")
   @Override
-  public Application create(@RequestBody Application obj) {
-    return applicationService.create(obj);
+  public ResponseEntity<Application> create(@RequestBody Application obj) {
+    Application application = applicationService.create(obj);
+    return ResponseEntity.status(201).body(application);
   }
 
-  @PutMapping("/applications/{id}")
+  @PutMapping("/application/{id}")
   @Override
-  public Application update(@PathVariable("id") Long id, @RequestBody Application obj) {
-    return applicationService.update(id, obj);
+  public ResponseEntity<Application> update(@PathVariable("id") Long id, @RequestBody Application obj) {
+    Application application = applicationService.update(id, obj);
+    return ResponseEntity.ok(application);
   }
 
-  @DeleteMapping("/applications/{id}")
+  @DeleteMapping("/application/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Long id) {
     applicationService.delete(id);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return ResponseEntity.noContent().build();
   }
-
-  @GetMapping("/pages")
-  public List<Application> getAllPages() {
-    return applicationService.findAll().stream()
-        .filter(obj -> obj.getCategory().contains("Page"))
-        .filter(obj -> obj.getRepository() != null)
-        .toList();
-  }
-
 }

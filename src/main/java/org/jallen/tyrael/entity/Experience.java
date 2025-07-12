@@ -6,8 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "experience")
 public class Experience {
 
@@ -33,61 +37,4 @@ public class Experience {
 
   @Column(columnDefinition = "TEXT")
   private String description;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getCompany() {
-    return company;
-  }
-
-  public void setCompany(String company) {
-    this.company = company;
-  }
-
-  public String getPosition() {
-    return position;
-  }
-
-  public void setPosition(String position) {
-    this.position = position;
-  }
-
-  public String getDuration() {
-    return duration;
-  }
-
-  public void setDuration(String duration) {
-    this.duration = duration;
-  }
-
-  public String getTotal() {
-    return total;
-  }
-
-  public void setTotal(String total) {
-    this.total = total;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
 }

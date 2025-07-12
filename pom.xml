@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.jallen</groupId>
 	<artifactId>tyrael</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.4.0-SNAPSHOT</version>
 	<name>tyrael</name>
 	<description>The Official Server of Jallen</description>
 	<url/>
