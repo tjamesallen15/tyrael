@@ -1,6 +1,6 @@
 # Tyrael
 
-Modern REST API server built with Java 17 and Spring Boot 3.4, featuring PostgreSQL database integration and comprehensive security.
+It is a modern REST API server built with Java 17 and Spring Boot 3.4, featuring PostgreSQL database integration. It includes complete create, read, update, and delete functionality for James Allen's applications, highlighting his development expertise.
 
 ## Tech Stack
 
