@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class SkillController implements BaseController<Skill> {
   
   @Autowired
-  private SkillServices skillsService;
+  private SkillServices skillService;
 
   @Autowired
-  private SkillMapper skillsMapper;
+  private SkillMapper skillMapper;
 
   @GetMapping("/skill")
   @Override
   public ResponseEntity<List<Skill>> findAll() {
-    List<Skill> skills = skillsMapper.getMapping(skillsService.findAll());
+    List<Skill> skills = skillMapper.getMapping(skillService.findAll());
     return ResponseEntity.ok(skills);
   }
 
   @GetMapping("/skill/{id}")
   @Override
   public ResponseEntity<Skill> findById(Long id) {
-    Optional<Skill> skills = skillsService.findById(id);
+    Optional<Skill> skills = skillService.findById(id);
     return skills.map(o -> ResponseEntity.ok(o))
       .orElse(ResponseEntity.notFound().build());
   }
@@ -42,21 +42,21 @@ public class SkillController implements BaseController<Skill> {
   @PostMapping("/skill")
   @Override
   public ResponseEntity<Skill> create(Skill obj) {
-    Skill skills = skillsService.create(obj);
+    Skill skills = skillService.create(obj);
     return ResponseEntity.status(201).body(skills);
   }
 
   @PutMapping("/skill/{id}")
   @Override
   public ResponseEntity<Skill> update(Long id, Skill obj) {
-    Skill skills = skillsService.update(id, obj);
+    Skill skills = skillService.update(id, obj);
     return ResponseEntity.ok(skills);
   }
 
   @DeleteMapping("skill/{id}")
   @Override
   public ResponseEntity<?> delete(Long id) {
-    skillsService.delete(id);
+    skillService.delete(id);
     return ResponseEntity.noContent().build();
   }
 }

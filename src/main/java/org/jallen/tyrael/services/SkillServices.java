@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.jallen.tyrael.base.BaseService;
 import org.jallen.tyrael.entity.Skill;
 import org.jallen.tyrael.mapper.SkillMapper;
-import org.jallen.tyrael.repositories.SkillsRepository;
+import org.jallen.tyrael.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -15,39 +15,39 @@ import org.springframework.stereotype.Service;
 public class SkillServices implements BaseService<Skill> {
   
   @Autowired
-  private SkillsRepository skillsRepository;
+  private SkillRepository skillRepository;
 
   @Autowired
-  private SkillMapper skillsMapper;
+  private SkillMapper skillMapper;
 
   @Override
   public List<Skill> findAll() {
-    return skillsRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    return skillRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
   }
 
   @Override
   public Optional<Skill> findById(Long id) {
-    return skillsRepository.findById(id);
+    return skillRepository.findById(id);
   }
 
   @Override
   public Skill create(Skill obj) {
-    return skillsRepository.save(obj);
+    return skillRepository.save(obj);
   }
 
   @Override
   public Skill update(Long id, Skill obj) {
-    Skill skills = skillsRepository.findById(id)
+    Skill skills = skillRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Skills not found with id: " + id));
 
-    skills = skillsMapper.getMapping(skills, obj);
-    return skillsRepository.save(skills);
+    skills = skillMapper.getMapping(skills, obj);
+    return skillRepository.save(skills);
   }
 
   @Override
   public void delete(Long id) {
-    if (skillsRepository.existsById(id)) {
-      skillsRepository.deleteById(id);
+    if (skillRepository.existsById(id)) {
+      skillRepository.deleteById(id);
     }
   }
 }
